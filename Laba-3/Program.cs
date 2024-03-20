@@ -26,12 +26,11 @@ class Project
             Console.WriteLine("Площа трикутника: {0}", t1.Square()); // площа
             Console.WriteLine("Периметр трикутника = {0}", t1.Perimeter()); // периметр    
             t1.Heights();
-            t1.Medians(t1.a, t1.b, "C", t1.c); // CM
-            t1.Medians(t1.b, t1.c, "A", t1.a); // CM
-            t1.Medians(t1.a, t1.c, "B", t1.b); // CM
+            t1.Medians(); 
             t1.IncircleRadius();
             t1.CircumcircleRadius();
             t1.TypeOfTriangle();
+            t1.Equal();
 
             t1.Rotate(45, t1.a);
 
@@ -84,6 +83,18 @@ class Triangle
 
     }
 
+    public void Equal()
+    {
+        Triangle nw = new Triangle(new Point(1, 0), new Point(5, 6), new Point(6, 9));
+
+        if((A.DistanceTo(B) + A.DistanceTo(C) + C.DistanceTo(B)) == (nw.A.DistanceTo(nw.B) + nw.A.DistanceTo(nw.C) + nw.B.DistanceTo(C)))
+        {
+            Console.WriteLine("Трикутники рiвнi");
+        }
+        else
+            Console.WriteLine("Трикутники не рiвнi");
+    }
+
     public double Square()
     {
         return 0.5 * Math.Abs((A.X * (B.Y - C.Y) + B.X * (C.Y - A.Y) + C.X * (A.Y - B.Y)));
@@ -104,12 +115,11 @@ class Triangle
         Console.WriteLine("Высота C = {0}", (2 * Square()) / A.DistanceTo(B));
     }
 
-    public void Medians(Point x,Point y,string z,Point z1) // х и у это две точки где по центру точка M . z это буква куда идем медиана , z1 точка куда идет медиана
+    public void Medians() 
     {
-        Point M = new Point((x.X + y.X)/2 ,(x.Y + y.Y )/2);
-
-        Console.WriteLine($"Медиана M{z} = {M.DistanceTo(z1)}" );
-
+        Console.WriteLine($"Медиана MA = {Math.Sqrt(Math.Pow((A.X + B.X) / 2 - C.X, 2) + Math.Pow((A.Y + B.Y) / 2 - C.Y, 2))}");
+        Console.WriteLine($"Медиана MB = {Math.Sqrt(Math.Pow((A.X + C.X) / 2 - B.X, 2) + Math.Pow((A.Y + C.Y) / 2 - B.Y, 2))}");
+        Console.WriteLine($"Медиана MC = {Math.Sqrt(Math.Pow((B.X + C.X) / 2 - A.X, 2) + Math.Pow((B.Y + C.Y) / 2 - A.Y, 2))}");
     }
 
     public void IncircleRadius()
